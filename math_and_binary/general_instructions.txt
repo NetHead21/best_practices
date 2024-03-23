@@ -1,0 +1,657 @@
+Project: Math and Binary 
+Page 108 of Learn Python in one Day and LEARN IT WELL.pdf
+
+Congratulations! We’ve now covered enough fundamentals of Python (and
+programming in general) to start coding our first full program. In this
+chapter, we’re going to code a simple console game that consists of two
+mini games – a Mathematics game and a Binary game.
+
+At the start of the game, users can choose if they want to play the math or
+binary game. In addition, they’ll also be prompted to enter the number of
+questions that they want for that round. They must choose to answer
+between 1 to 10 questions per round.
+
+The math game tests our understanding of the BODMAS rule of arithmetic
+calculation. If you are unsure what BODMAS is, you can check out this site
+http://www.mathsisfun.com/operation-order-bodmas.html .
+
+The binary game, on the other hand, requires players to convert a base 10
+number to a binary (base 2) number. If you are new to binary numbers,
+check out this article http://www.mathsisfun.com/binary-number-
+system.html
+
+In both cases, the game randomly sets a question for players to answer. If
+they get the answer wrong, the program will display the correct answer and
+proceed to the next question. If they get it correct, the program will update
+their scores and proceed to the next question.
+
+The program keeps track of the players’ scores and saves those scores in an
+external text file. After each round, players can key “-1” to terminate the
+program or press Enter to start a new round.
+
+I’ve broken down the program into small exercises so that you can try
+coding the program yourself. Try the exercises before referring to the
+answers. Answers are provided in Appendix E or you can go to
+http://www.learncodingfast.com/python to download the Python files. I
+would strongly encourage you to download the source code as the
+formatting in Appendix E may result in the distortion of some indentation
+which makes the code difficult to read.
+
+Remember, learning the Python syntax is easy but boring. Problem solving
+is where the fun lies. If you encounter difficulties when doing these
+exercises, try harder. This is where the reward is the greatest.
+Ready? Let’s go!
+
+Part 1: gametasks.py
+We will be writing three files for our programs: gametasks.py ,
+gameclasses.py and project.py . Part 1 will focus on writing the code for
+gametasks.py .
+
+To start, let’s first create a new file in IDLE and name it gametasks.py .
+gametasks.py is a module that contains three functions that perform certain
+tasks in our project. These functions do not require any information about
+an instance or a class and are thus not written as part of a class.
+
+Exercise 1.1: Print Game Instructions
+
+The first function is called printInstructions() . It has one parameter
+called instruction and simply uses the built-in print() function to print
+the value of instruction onto the display. Try coding this function
+yourself.
+
+Exercise 1.2: Getting the User’s Score
+
+The second function is called getUserScore() . This function accepts one
+parameter, userName .
+
+The function first opens a file called userScores.txt in 'r' mode.
+userScores.txt looks something like this:
+
+Ann, 100
+Benny, 102
+Carol, 214
+Darren, 129
+
+Each line records the information of one user. The first value is the user’s
+username and the second is the user’s score.
+
+Next, the function reads the file line by line using a for loop.
+Within the for loop, each line is split using the split() function (refer to
+Appendix A for an example on using the split() function) and the results
+of the split() function is stored in a list called content . Try coding this
+first.
+
+Next, still within the for loop, the function checks if any of the lines has the
+same username as the value that is passed in as the parameter. If there is, the
+function closes the file and returns the score beside that username.
+After looping through the file, if the function does not find a match for the
+username, it exits the for loop, closes the file and returns the string “-1”.
+Clear so far? Try coding this function.
+
+Done?
+
+Now we need to make some modifications to our code. When opening our
+file previously, we used the 'r' mode. This helps to prevent any accidental
+changes to the file. However, when opening a file in 'r' mode, an IOError
+occurs if the file does not already exist. Hence when we run the program for
+the first time, we’ll end up with an error since the file userScores.txt does
+not exist previously. To prevent this error, we can do either of the following:
+
+Instead of opening the file in 'r' mode, we can open it in 'w' mode. When
+opening in 'w' mode, a new file will be created if the file does not exist
+previously. The risk with this method is we may accidentally write to the
+file, which results in all previous content being erased. However, since our
+program is a small program, we can check through our code carefully to
+prevent any accidental writing.
+
+The second method is to use a try, except statement to handle the
+IOError . To do that, we need to put all our previous codes in the try block,
+then use except IOError: to handle the ‘File not found’ error. In the
+except block, we’ll inform users that the file is not found and then proceed
+to create the file. We’ll use the open() function with 'w' mode to create it.
+
+The difference here is we use the 'w' mode only when the file is not found.
+Since the file does not exist initially, there is no risk of erasing any previous
+content. After creating the file, we close the file and return the string “-1”.
+Try doing this yourself. You can choose either of the above methods to
+complete this exercise. The answer provided uses the second method. Once
+you are done, we can move on to Exercise 1.3.
+
+Exercise 1.3: Updating the User’s Score
+In this exercise, we’ll define another function called updateUserScore() .
+This function requires us to use two built-in functions from the os module:
+the remove() and rename() functions .
+
+Try importing these two functions yourself.
+
+Done? Let’s move on.
+
+The updateUserScore() function has three parameters: newUser , userName
+and score . Let’s add these parameters to the function definition.
+newUser can either be True or False .
+
+If newUser is True , the function will open the file userScores.txt in
+append mode and add the user’s userName and score to the file using the
+write() function. After that, it’ll close the file. Try coding this if block
+yourself.
+
+Else, if newUser is False , the function will update the user’s score in the
+file. However, there is no function in Python (or most programming
+languages for that matter) that allows us to update a text file. We can only
+write or append to it, but we cannot update it.
+
+Hence, we need to create a temporary file. This is a fairly common practice
+in programming. Let’s call this file userScores.tmp . Recall that we can
+create a new file by opening it in 'w' mode. Let’s create the file now. We
+need to create it inside the else block.
+
+Done?
+
+Now, still within the else block, let’s open the userScores.txt file in 'r'
+mode as we will only be reading from it. Next, we need to loop through
+userScores.txt line by line using a for loop and split the line using the
+split() function. We assign the result of the split() function to a list
+called content .
+
+For each line, we check if the username on that line is the same as the one
+provided by the parameter userName . If it is, we'll change the score to the
+new score provided by the parameter score and write this updated line to
+the userScores.tmp file.
+
+If it is not the same, we'll simply write the original line to the temporary file
+userScores.tmp .
+
+For instance, if the arguments provided to the function are False , 'Benny '
+and '158 ' (i.e. updateUserScore(False, 'Benny ', '158 ') ), the table below
+shows the difference between the original userScores.txt and the new
+userScores.tmp file.
+userScores.txt
+Ann, 100
+Benny, 102
+Carol, 214
+Darren, 129
+userScores.tmp
+Ann, 100
+Benny, 158
+Carol, 214
+Darren, 129
+
+Try doing this step yourself.
+
+Once we are done with that, we exit the for loop and close both files. We
+then delete userScores.txt . Finally, we rename userScores.tmp to
+userScores.txt .
+
+Clear? Try coding the else block yourself.
+
+Once you are done, the updateUserScore() function is complete. This also
+marks the end of the gametasks.py file.
+
+As shown in the structure above, to generate the questions, we need to first
+import the randint() function from the random module. The randint()
+function generates a random integer within the range provided by us. We’ll
+use that to generate numbers for our questions later. Try importing the
+function yourself.
+
+(b) Declaring variables
+
+Next, we need to declare a local variable called score . This variable is
+used to store the score of the player during the game. Try declaring this
+variable and initializing it to zero.
+
+(c) Generating questions
+
+After this, we are ready to generate the questions. The number of questions
+generated by the function depends on the instance variable _noOfQuestions
+that BinaryGame inherited from Game . We’ll use the getter method to get
+this variable. To control the number of questions generated, we’ll use a for
+loop. Here’s how the for loop looks like:
+
+for i in range(self.noOfQuestions):
+Within the for loop, we use the randint() function to generate a random
+number. The randint() function has two parameters, start and end , and
+returns a random integer N such that start <= N <= end .
+
+For instance, if randint(1, 9) is called, it’ll randomly return an integer
+from the numbers 1, 2, 3, 4, 5, 6, 7, 8, 9 .
+
+For our function, we’ll use randint() to generate a number from 1 to 100
+and assign the result to a local variable called base10 .
+
+Next, we need to use the input() function to prompt the user to convert the
+number to binary. We’ll then assign the user’s answer to a local variable
+called userResult .
+
+Try doing these steps yourself.
+
+Next, still within the for loop, we need to compare the user’s input with the
+correct answer. We’ll do that using a while True loop. A while True loop
+is basically a loop that runs indefinitely. This is because writing while True
+is equivalent to writing something like while 1==1 . Since 1 is always
+equals to 1 (hence always True ), the while condition will never evaluate to
+False . Hence, the loop will run indefinitely. In order to exit the loop, we
+need to use a break statement.
+
+Here’s a suggestion on how you can use a while True loop for this
+exercise.
+
+while True:
+	try:
+		#cast user’s answer to an integer and evaluate the answer
+		#update user score based on the answer
+		#break out from the while True loop using the break
+		statement
+	except:
+		#print error message if casting fails
+		#prompt user to key in the answer again
+
+Recall that the input() function returns user input as a string? Within the
+while True loop, we use a try, except statement to try casting the input
+into a number. If the cast fails, the program should inform the user of the
+error and prompt the user to type in a valid input.
+
+The while True loop will keep looping until the try block executes
+correctly and reaches the break statement.
+Let’s work on the try block.
+
+We’ll be using the built-in int() function to try casting the user’s input into
+an integer. However, we need to inform Python that the number that we are
+trying to cast is a base-2 number. This can be achieved with the code below:
+answer = int(userResult, base = 2)
+When we write base = 2 within the parentheses for the int() function,
+Python knows that userResult is meant to be interpreted as a base-2
+number.
+
+int() then converts the string into a base-10 integer and returns the value.
+We can then assign it to a local variable called answer .
+Next, we use an if statement to compare answer with the original base-10
+number (which is stored in the variable base10 ).
+
+If the two values are the same, we inform the user that the answer is correct
+and add 1 to the value of score . We then use the break keyword to exit the
+while True loop.
+
+If the user gets it wrong, we’ll inform the user and display the correct
+answer. To do that, we can use the format() method covered in Chapter
+4.3. To display a number in binary form, we need to use the b formatter as
+shown below:
+
+print("Wrong answer. The correct answer is {:b}.".format(base10))
+
+After displaying the answer, we’ll use the break keyword to exit the while
+True loop too. With that, the try block is complete. Try coding the try
+block yourself.
+
+Next, let us move on to the except block. This block is executed if the
+int() function fails to convert the user’s input into a number. Inside the
+except block, we inform the user that he/she did not enter a binary number
+and use the input() function to prompt the user to enter a new number. We
+then use this new input to update the variable userResult . With that, the
+except block is complete.
+
+(d) Returning value of score
+
+After we exit the except block, we exit the while True loop and for loop
+as well. At this stage, the function has finished generating all the necessary
+questions. Now we simply return the value of score .
+
+Try coding this function yourself. Once you finish coding the
+generateQuestions() function, the BinaryGame class is done and we are
+ready to move on to the MathGame class.
+
+Exercise 2.3: The MathGame class
+
+The MathGame class is very similar to the BinaryGame class. It also derives
+from the Game class. Try defining the class yourself.
+
+Within the MathGame class, we only have one method called
+generateQuestions() . The basic structure of the generateQuestions()
+method is similar to that in the BinaryGame class:
+def generateQuestions(self):
+
+#import randint
+#declare four local variables called score, numberList,
+symbolList and operatorDict
+
+#use for loop to generate questions and evaluate answers
+#return the value of score
+
+(a) Importing the randint() function
+
+As before, to generate the questions, we need to first import the randint()
+function from the random module. Try importing this function yourself.
+
+(b) Declaring variables
+
+Next, we need to declare four local variables. The first variable is called
+score . This is used to store the score of the player. We initialize it to zero.
+After this, we need two lists. We shall name the two lists numberList and
+symbolList .
+
+numberList should store five numbers, with 0 as their initial values.
+symbolList should store four strings, with ' ' as their initial values.
+Finally, we need a dictionary. The dictionary consists of 4 pairs, with
+integers 1 to 4 as the dictionary keys, and “+”, “-”, “*”, “**” as the data.
+Let’s call this operatorDict .
+
+Try declaring and initializing the variables yourself .
+(c) Generating questions
+
+Done? Now we are ready to generate the questions. The number of
+questions generated by the function depends on the instance variable
+_noOfQuestions that MathGame inherited from Game . Try defining a for
+loop to achieve this. You can refer to the generateQuestions() function in
+BinaryGame for reference.
+
+Done? Now, let us work on the for loop.
+
+Within the for loop, we need to update numberList with random numbers.
+To do that, we use the randint() function to generate a random number
+from 1 to 9. We can do this one by one since numberList only has five
+members. We can write
+numberList[0] = randint(1, 9)
+numberList[1] = randint(1, 9)
+numberList[2] = randint(1, 9)
+numberList[3] = randint(1, 9)
+numberList[4] = randint(1, 9)
+
+Each time randint(1, 9) is called, it’ll randomly return an integer from
+the numbers 1, 2, 3, 4, 5, 6, 7, 8, 9.
+
+However, this is not the most elegant way of updating our numberList .
+Imagine how cumbersome it’ll be if numberList has 1000 members. The
+better alternative is to use a for loop.
+Try using a for loop to accomplish the task. (Note: Here we are using a for
+loop inside another for loop)
+
+Done? Great!
+
+Now that we have the numbers to operate on, we need to randomly generate
+the mathematical symbols (+, -, *, **) for our questions. To do that, we’ll
+use the randint() function and the operatorDict dictionary .
+
+randint() will generate the dictionary key, which will then be mapped to
+the correct operator using the operatorDict dictionary. For instance, to
+assign a symbol to symbolList[0] , we write
+symbolList[0] = operatorDict[randint(1, 4)]
+Similar to numberList , you should use a for loop to complete this task.
+However, there is one problem that makes this for loop harder than the
+previous one.
+
+Recall that in Python, ** stands for exponent (i.e. 2**3 = 2^3)?
+The problem is, when we have two consecutive exponent operators in
+Python, such as 2**3**2, Python interprets it as 2**(3**2) instead of
+(2**3)**2. In the first case, the answer is 2 to the power of 9 (i.e. 29 )
+which is 512. In the second case, the answer is 8 to the power of 2 (i.e. 82 )
+which is 64. Hence when we present a question like 2**3**2, the user will
+get the answer wrong if he interprets it as (2**3)**2.
+To prevent this problem, we’re going to modify our code so that we do not
+get two consecutive ** signs. In other words, symbolList = [ '+ ', '+ ', '- ',
+'** '] is fine but symbolList = [ '+ ', '- ', '** ', '** '] is not.
+This exercise is the hardest among all the exercises. Try coming up with a
+solution to prevent two consecutive ** signs. Once you are done, we can
+proceed on to the next step.
+
+Hint: If you are stuck, you can consider using an if statement within the
+for loop.
+
+Now that we have our symbols and numbers, we are going to try to generate
+the mathematical expression as a string. This expression uses the five
+numbers from numberList and the four mathematical symbols from
+symbolList to form a question.
+
+We have to declare another variable called questionString and assign the
+mathematical expression to questionString . Examples of
+questionString include
+6 – 2*3 – 2**1
+4 + 5 – 2*6 + 1
+8 – 0*2 + 5 – 8
+
+Try to generate this expression yourself.
+
+Hint: You can first assign the first item in numberList to questionString
+and then use a for loop to concatenate the remaining items from
+numberList and symbolList to get the mathematical expression. Note that
+you need to cast items in numberList into a string first (using the built-in
+str() function) before concatenating them with other strings.
+Try doing this yourself.
+
+Done? Good! We should now have a mathematical expression as a string,
+assigned to the variable questionString . To evaluate the result of this
+expression, we’re going to use a brilliant built-in function that comes with
+Python, eval() .
+
+eval() interprets a string as a code and executes the code. For instance, if
+we write eval( "1+2+4 ") , we’ll get the number 7.
+Hence to evaluate the result of our mathematical expression, we pass in
+questionString to the eval() function and assign the result to a new
+variable named result .
+
+Try doing this yourself .
+
+Now, we need to display the question to the user. As mentioned earlier, in
+Python, the ** symbol stands for exponent. That is, 2**3 = 8. However, to
+most users, ** has no meaning. Hence if we display a question as 2**3 + 8
+- 5, the user will likely be confused. To prevent that, we’ll replace any **
+symbol in questionString with the ^ symbol.
+
+To do that, we’ll use the built-in function replace() . Using it is pretty
+straightforward, just write questionString = questionString.replace("**", "^") .
+
+After replacing the original question string to a more reader-friendly string,
+we use the input() function to prompt the user to evaluate the question and
+assign the result to a local variable called userResult .
+
+Now, we are ready to evaluate the answer and update the user’s score.
+Similar to what we did for the BinaryGame class, we’ll use a while True
+loop to repeatedly prompt the user for an answer if he/she fails to enter a
+value that can be converted to an integer using the int() function.
+
+On the other hand, if the user enters a valid value, we’ll compare it with the
+correct answer (which is stored in result) . If the two values are the same,
+we inform the user that the answer is correct and add 1 to the value of
+score . We then use the break keyword to exit the while True loop.
+
+If the user gets it wrong, we’ll inform the user and display the correct
+answer. After that, we’ll use the break keyword to exit the while True
+loop.
+
+Try coding this while True loop yourself. It is almost identical to the while
+True loop in the BinaryGame class. You can refer to that if you are stuck .
+(d) Returning value of score
+
+Done? Once you are done with the while True loop, you can exit both the
+while True loop and for loop and return the local variable score . This
+marks the end of the generateQuestions() method and also the end of the
+MathGame class.
+
+With that, the gameclasses.py file is complete.
+
+Part 3: project.py
+
+Congratulations for completing Part 1 and 2.
+Part 3 is going to be relatively easy as we’ll mainly be calling the functions
+and methods that we defined earlier. Let’s start now by creating a new file
+called project.py .
+
+Exercise 3.1: Importing classes and functions
+
+First, we need to import the classes and functions that we coded in the
+previous two files. Try doing this yourself.
+
+Next, we are ready to start coding the main program. We’ll enclose our
+main program in a try, except statement. We want to handle any
+unforeseen errors when running the main program. The structure for the
+try, except statement is as follows:
+
+try:
+	#declare variables
+	#use a while loop to run the program until the user chooses
+	to exit
+	#update the user’s score after he/she exits the program
+except Exception as e:
+	#inform users that an error has occurred and the program will
+	exit
+
+Exercise 3.2: Writing the try block
+
+We’ll start with the code for the try block.
+(a) Declaring variables
+
+Let’s declare two local variables called mathInstructions and
+binaryInstructions . As the names suggest, these are variables that store
+instructions for the two games. The instructions for the math game is as
+follows:
+
+In this game, you will be given a simple arithmetic question.
+Each correct answer gives you one mark.
+No mark is deducted for wrong answers.
+
+The instructions for the binary game is as follows:
+In this game, you will be given a number in base 10.
+Your task is to convert this number to base 2.
+Each correct answer gives you one mark.
+No mark is deducted for wrong answers.
+
+Try declaring the two variables yourself and assigning the two strings to the
+correct variable.
+
+Next, we shall instantiate two objects called bg and mg , which are instances
+of the BinaryGame and MathGame classes respectively.
+After that, we need to prompt the user for his/her username and assign the
+value to the variable userName . Once we are done, we pass this variable to
+the function getUserScore() .
+
+getUserScore() will either return the score of the user or return ‘-1’ (if the
+user is not found). Let’s cast this result into an integer and assign it to a
+variable called score .
+
+Next, we need to set the value of another variable called newUser . If score
+is -1, we set newUser to True and change the value of score from -1 to 0.
+Else, we set newUser to False .
+
+Try coding this yourself.
+
+Once you are done with it, we’ll print a message on the screen to welcome
+the user and display his score.
+
+(b) Using a while loop to run the program
+The next part of our program involves a while loop. Specifically, our
+program will prompt for input from our user to determine if it should
+terminate the program or do something else.
+
+You need to declare another variable userChoice and give it an initial value
+of 0.
+
+Next, using a while loop, we compare userChoice with a string of your
+choice, say “-1”. If userChoice is not the same as “-1”, the game keeps
+running until userChoice becomes “-1”.
+
+The structure of the while loop is as follows:
+userChoice = 0
+while userChoice != '-1 '
+	#prompt user to select Math game or Binary game
+	#prompt user for number of questions per gam e
+	#display relevant questions based on user’s selection and
+	update user’s score
+	#display updated score to user
+	#prompt user to enter a choice again and use it to update
+	userChoice
+
+Within the while loop, we do a few things.
+First, we prompt the user to choose between a Math game or a Binary game
+using the following prompt message:
+
+Math Game (1) or Binary Game (2)?
+
+Next, we assign the user’s input to a local variable called game and use a
+while loop to keep prompting the user for a valid choice if the user did not
+enter '1' or ‘2’. Here, we are using a while loop inside another while loop.
+The inner while loop is controlled by the variable game while the outer
+while loop is controlled by the variable userChoice .
+
+Try coding this inner while loop yourself. Remember to update the variable
+game inside the inner while loop so that you do not get an infinite loop.
+Once you are done with that, we go on to prompt the user to enter the
+number of questions that he/she wants for that game and assign the user’s
+input to numPrompt . We’ll use the prompt below:
+
+How many questions do you want per game (1 to 10)?
+Next, we need to try casting numPrompt into an integer. To do that, we use a
+while True loop similar to what we used in Exercise 2.2 and 2.3 for the
+generateQuestions() method. The structure of the while True loop is as
+follows :
+while True:
+	try:
+		#cast numPrompt into an integer and assign it to a local
+		variable called num.
+		#break
+	except:
+		#notify user that they did not enter a valid number
+		#prompt user to enter the number of questions again and
+		assign the result to numPrompt.
+
+Try coding this while True loop yourself.
+
+Once you are done with that, we are ready to display the relevant questions
+based on the user’s choice.
+
+We’ll use an if statement for this.
+
+If user chose to play a Math game (i.e. game == '1' ), we do three things:
+First, we use the statement below to set the value of the instance variable
+_noOfQuestions in the MathGame class.
+
+mg.noOfQuestions = num
+
+Here, we are using the setter method inside the MathGame class to set the
+value of _noOfQuestions . This prevents the user from setting a value that
+is greater than 10 or smaller than 1.
+Next, we use the printInstructions() function to print the instructions
+for the Math game.
+
+Finally, we use mg to call the generateQuestions() method in the
+MathGame class. This method generates the relevant questions and returns
+the score that the user got for that round. We add this value to the existing
+value of score to update it.
+
+Try coding the above three steps yourself.
+
+Once you are done, you can move on to the else block.
+This block is very similar to the if block except that we use bg instead of
+mg to call the methods in the BinaryGame class. Try coding the else block
+yourself.
+
+After all the questions are displayed, we display the current score to the
+user.
+
+Next, we prompt the user to press Enter to continue or “-1” to exit and use
+the result to update userChoice .
+
+With that, we can exit the while loop.
+
+(c) Updating userScores.txt
+Once we are outside the while loop, we need to update the userScores.txt
+file. To do that, we simply call the updateUserScore() function by passing
+in the variables newUser , userName and score . We need to cast score into
+a string (using the str() function) as the updateUserScore() function
+requires score to be a string so that it can be concatenated with other
+strings inside the function.
+
+That’s all for the try block.
+Exercise 3.3: Writing the except block
+Now, let’s move on to the except block. For the except block, we inform
+the user that an unknown error has occurred and the program will exit. In
+addition, we also print out the system generated error message to get a brief
+description of what the error is.
+
+With that, the program is complete!!! That’s it, you have just finished
+coding your first program in Python. Excited? I sure hope you are as
+excited about it as I am. :)
+
+Now try running the program project.py . Does it work as expected?
+If your code does not work, compare it with the sample answer and try to
+figure out what went wrong. You’ll learn a lot by analyzing your mistakes.
+Problem solving is where the fun lies and where the reward is the greatest.
+Have fun and never give up! The sample answer can be found in Appendix
+E.

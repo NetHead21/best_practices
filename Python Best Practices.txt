@@ -1,0 +1,9 @@
+Python Best Practices
+1. Use if __name__ == "__main__":
+	- 1_if_main.py
+2. Using main() to glue them all together
+	- 2_main.py
+	- C:\Users\eGrowthPartners\Documents\PythonProject\software_designer_mindset\26_pos_system_refactored\main.py
+3. Single Responsibility Principle (a function should do one thing and do it well)
+4. Type Annotations
+5. List Comprehensions
