@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from employees.employee import Employee
 
 
 class Notification(ABC):
@@ -30,6 +31,6 @@ class NotificationFactory:
         if method == "email":
             return EmailNotification()
         elif method == "sms":
-            return SMSNotifiction()
+            return SMSNotification()
         else:
             raise ValueError("Invalid notification method")
