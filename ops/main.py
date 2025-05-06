@@ -3,7 +3,7 @@ from employees.employee import (
     HourlyEmployee,
     SalariedEmployee,
 )
-from notifications.notification import NotificationFactory
+from notifications import notification
 
 
 def main() -> None:
@@ -22,8 +22,7 @@ def main() -> None:
     company.pay_employee(company.employees[0])
     company.employees[0].take_a_holiday(False)
 
-    notification = NotificationFactory.get_notification("email")
-    notification.send(employee=juniven, message="Your leave request is approved.")
+    notification.send_email(employee=juniven, message="Your leave request is approved.")
 
 
 if __name__ == "__main__":

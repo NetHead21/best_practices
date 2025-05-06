@@ -1,36 +1,11 @@
-from abc import ABC, abstractmethod
 from employees.employee import Employee
 
 
-class Notification(ABC):
-    """Abstract base class for notifications."""
-
-    @abstractmethod
-    def send(slef, employee: Employee, massage: str) -> None: ...
-
-
-class EmailNotification(Notification):
+def send_email(employee: Employee, message: str) -> None:
     """Email notificaiton implementation."""
-
-    def send(self, employee: Employee, message: str) -> None:
-        print(f"Sending email to {employee.name}: {message}")
+    print(f"Sending email to {employee.name}: {message}")
 
 
-class SMSNotification(Notification):
+def send_sms(employee: Employee, message: str) -> None:
     """SMS notification implementation."""
-
-    def send(self, employee: Employee, message: str) -> None:
-        print(f"Sending SMS to {employee.name}: {message}")
-
-
-class NotificationFactory:
-    """Factory for creating notifications."""
-
-    @staticmethod
-    def get_notification(method: str) -> Notification:
-        if method == "email":
-            return EmailNotification()
-        elif method == "sms":
-            return SMSNotification()
-        else:
-            raise ValueError("Invalid notification method")
+    print(f"Sending SMS to {employee.name}: {message}")
