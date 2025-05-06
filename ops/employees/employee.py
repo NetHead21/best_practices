@@ -39,15 +39,3 @@ class HourlyEmployee(Employee):
 @dataclass
 class SalariedEmployee(Employee):
     monthly_salary: float = 50000
-
-
-@dataclass
-class Freelancer(Employee):
-    hourly_rate: float = 50
-    amount: int = 10
-    retainer: float = 1000
-
-
-@dataclass
-class Intern(Employee):
-    monthly_salary: float = 1000
