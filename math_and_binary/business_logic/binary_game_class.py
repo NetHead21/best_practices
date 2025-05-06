@@ -15,7 +15,9 @@ class BinaryGame(Questions, Game):
 
     def _get_score(self, raw_question: int | str) -> int:
         while True:
-            question = f"What is the binary equivalent of {raw_question}? {raw_question:b}"
+            question = (
+                f"What is the binary equivalent of {raw_question}? {raw_question:b}"
+            )
             try:
                 answer = int(get_user_input(question), base=2)
                 return 1 if self._check_answer(raw_question, answer) else 0

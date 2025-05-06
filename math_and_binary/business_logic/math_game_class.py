@@ -17,7 +17,9 @@ class MathGame(Questions, Game):
 
     def _get_score(self, raw_question: int | str) -> int:
         while True:
-            question = f"What is the result of {raw_question}? {int(eval(raw_question))}"
+            question = (
+                f"What is the result of {raw_question}? {int(eval(raw_question))}"
+            )
             try:
                 answer = int(get_user_input(question))
                 return 1 if self._check_answer(int(eval(raw_question)), answer) else 0

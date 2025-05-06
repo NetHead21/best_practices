@@ -73,12 +73,11 @@ def generate_password(password_len: int) -> str:
 
     # for i in range(password_len):
     #     password += generate_random_char()
-    
+
     # return password
     return "".join(generate_random_char() for _ in range(password_len))
+
 
 password_len = int(input("How many password characters do you want?: "))
 new_password = generate_password(password_len)
 print(new_password)
-
-
