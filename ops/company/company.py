@@ -2,8 +2,6 @@ from employees.employee import (
     Employee,
     HourlyEmployee,
     SalariedEmployee,
-    Freelancer,
-    Intern,
 )
 
 
@@ -33,12 +31,4 @@ class Company:
         elif isinstance(employee, HourlyEmployee):
             print(
                 f"Pyaing employee {employee.name} a hourly rate of ${employee.hourly_rate} for {employee.amount} hours."
-            )
-        elif isinstance(employee, Freelancer):
-            print(
-                f"Playing freelancer {employee.name} a hourly rate of ${employee.hourly_rate} for {employee.amount} hours."
-            )
-        elif isinstance(employee, Intern):
-            print(
-                f"Paying intern {employee.name} a monthly salary of ${employee.monthly_salary}"
             )
