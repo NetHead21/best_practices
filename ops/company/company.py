@@ -14,14 +14,8 @@ class Company:
     def add_employee(self, employee: Employee) -> None:
         self.employees.append(employee)
 
-    def find_managers(self) -> list[Employee]:
-        return [e for e in self.employees if e.role == "manager"]
-
-    def find_vice_presidents(self) -> list[Employee]:
-        return [e for e in self.employees if e.role == "vice-president"]
-
-    def find_support_staff(self) -> list[Employee]:
-        return [e for e in self.employees if e.role == "support"]
+    def find_by_role(self, role: str) -> list[Employee]:
+        return [e for e in self.employees if e.role == role]
 
     def pay_employee(self, employee: Employee) -> None:
         if isinstance(employee, SalariedEmployee):

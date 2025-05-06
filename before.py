@@ -120,7 +120,7 @@ class NotificationFactory:
         if method == "email":
             return EmailNotification()
         elif method == "sms":
-            return SMSNotifiction()
+            return SMSNotification()
         else:
             raise ValueError("Invalid notification method")
 

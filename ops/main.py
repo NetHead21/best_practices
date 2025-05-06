@@ -16,9 +16,9 @@ def main() -> None:
     company.add_employee(HourlyEmployee(name="Ellen", role="president"))
     company.add_employee(HourlyEmployee(name="Prince", role="support"))
 
-    print(company.find_vice_presidents())
-    print(company.find_managers())
-    print(company.find_support_staff())
+    print(company.find_by_role(role="president"))
+    print(company.find_by_role(role="manager"))
+    print(company.find_by_role(role="support"))
     company.pay_employee(company.employees[0])
     company.employees[0].take_a_holiday(False)
 
