@@ -1,8 +1,6 @@
-from employees.employee import (
-    Employee,
-    HourlyEmployee,
-    SalariedEmployee,
-)
+from employees.employee import Employee
+from employees.hourly import HourlyEmployee
+from employees.salaried import SalariedEmployee
 
 
 class Company:

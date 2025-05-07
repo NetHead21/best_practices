@@ -1,8 +1,6 @@
 from company.company import Company
-from employees.employee import (
-    HourlyEmployee,
-    SalariedEmployee,
-)
+from employees.hourly import HourlyEmployee
+from employees.salaried import SalariedEmployee
 from notifications import notification
 
 
