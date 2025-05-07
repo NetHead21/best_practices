@@ -1,4 +1,4 @@
-from employees.employee import Employee
+from ops.employees.employee import Employee
 
 
 def send_email(employee: Employee, message: str) -> None:
