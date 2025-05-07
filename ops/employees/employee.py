@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+PAYOUT_HOLIDAY_DAYS = 5
+
 
 @dataclass
 class Employee:
@@ -11,12 +13,12 @@ class Employee:
 
     def payout_holiday(self) -> None:
         """Pay out a holiday."""
-        if self.vacation_days < 5:
+        if self.vacation_days < PAYOUT_HOLIDAY_DAYS:
             raise ValueError(
                 f"You don't have enough holidays left over for a payout.\
                 Remaining holidays: {self.vacation_days}."
             )
-        self.vacation_days -= 5
+        self.vacation_days -= PAYOUT_HOLIDAY_DAYS
         print(f"Paying out a holiday. Holidays left: {self.vacation_days}")
 
     def take_a_single_holiday(self) -> None:
