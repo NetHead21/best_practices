@@ -20,7 +20,7 @@ def main() -> None:
     print(company.find_by_role(role="manager"))
     print(company.find_by_role(role="support"))
     company.pay_employee(company.employees[0])
-    company.employees[0].take_a_holiday(False)
+    company.employees[0].take_a_single_holiday()
 
     notification.send_email(employee=juniven, message="Your leave request is approved.")
 
